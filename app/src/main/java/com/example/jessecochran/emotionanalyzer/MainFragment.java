@@ -4,12 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jessecochran.emotionanalyzer.emotion.EmotionServiceClient;
 import com.example.jessecochran.emotionanalyzer.emotion.rest.WebServiceRequest;
+
+import org.json.JSONObject;
+
+import java.util.Map;
 
 
 /**
@@ -62,6 +67,14 @@ public class MainFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         WebServiceRequest webServiceRequest = new WebServiceRequest("9af8ddbf990f47b79733d388e18299ab");
+        try {
+            Object obj = webServiceRequest.post("http://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?%s", null,
+                    "application/json", true);
+            obj = (JSONObject) obj;
+        } catch (Exception e) {
+            Log.d("dd", "dd");
+        }
+
     }
 
     @Override
